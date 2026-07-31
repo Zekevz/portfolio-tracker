@@ -1,0 +1,4 @@
+yfinance
+feedparser
+beautifulsoup4
+easy-equities-client

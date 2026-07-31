@@ -1,0 +1,9 @@
+# EasyEquities login - never commit
+ee_credentials.json
+
+# Generated daily briefs
+output/
+
+# Python cache
+__pycache__/
+*.pyc
