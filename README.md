@@ -63,30 +63,17 @@ overwritten automatically once EasyEquities sync succeeds).
 - Track transaction history instead of just current snapshot, so realized
   vs unrealized P/L can be split out.
 - Add a scheduled-task/cron setup script instead of manual daily runs.
+- **Intraday monitor (in development).** Watches only held positions during
+  market hours on a 20-minute interval, and stays silent unless a position
+  moves past a set threshold or genuinely new news lands on one of them.
+  Silence is the default, since a monitor that talks constantly is one you
+  stop reading. A working prototype runs today; what it still needs is
+  somewhere to run other than an open session on my laptop, and deeper
+  per-holding insight rather than price movement alone.
 
 ## AI-workflow annexure
 
-*(Draft - replace with what you actually remember doing before publishing.
-Only the yfinance fallback below is grounded in the code itself; the rest
-is a template structure, not a verified account of what happened.)*
-
-Built with AI pair-programming (Claude) as part of the workflow, used as
-an editor would use a first draft rather than accepting output
-uncritically:
-
-- **EasyEquities has no official API or docs**, so the login flow
-  (`_ee_login`) had to be reverse-engineered from the real sign-in form.
-  AI drafted the two-step submission approach; verifying it actually
-  worked meant testing against the live site and reading the real HTML
-  response, not just reviewing the code.
-- **The yfinance news response shape changed** at some point - headlines
-  moved under `item["content"]` instead of being flat. `fetch_stock_headlines`
-  keeps a fallback (`c = item.get("content", item)`) for both shapes,
-  which is the kind of break AI-assisted code doesn't catch until you run
-  it against the real API.
-- **P/L calculations were checked against the EasyEquities app itself**
-  before trusting the output, since a plausible-looking formula and a
-  correct one look identical until compared against real numbers.
-
-Add your own specifics here: what you actually had to fix by hand, what
-AI got wrong first try, what you verified before trusting it.
+See [AI-ANNEXURE.md](AI-ANNEXURE.md) for the full account of how AI was used
+here, what it got wrong, what only surfaced against the live service, and what
+was verified by hand before being trusted. Roughly 20 hours of work, about 15
+of it troubleshooting.
